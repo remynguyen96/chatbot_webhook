@@ -1,0 +1,22 @@
+{
+  "name": "webhooks",
+  "version": "1.0.0",
+  "description": "Basic Webhooks For Facebook",
+  "main": "index.js",
+  "author": "Remy Nguyen",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon app.js --exec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fbsamples/messenger-platform-samples.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "nodemon": "^1.18.4",
+    "request": "^2.88.0"
+  }
+}

@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0")
+        meta(http-equiv="X-UA-Compatible" content="ie=edge")
+        title= title
+        style(type="text/css").
+            h3, p {
+                text-align: center;
+            }
+            h3 {
+                text-transform: capitalize;
+                font-size: 34px;
+                color: #42b448;
+            }
+            p {
+                font-size: 24px;
+                color: #2F2F2F;
+            }
+    body
+        div(id="fb-root")
+        h3(style="text-align: center")= 'Version chatbot ' + version
+        p!= '<strong> curl -X GET "localhost:4500/webhook?hub.verify_token=webhook_verify_token&hub.challenge=CHALLENGE_ACCEPTED"<strong>'

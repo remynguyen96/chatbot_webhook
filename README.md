@@ -31,7 +31,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 ### Installation
+<<<<<<< HEAD
 
+=======
+  Install nodemon as global packages if not ``` npm install -g nodemon ```
+  
+>>>>>>> 757d7260a716aee4cfcd43223278cb38c93024b4
   Install yarn as global packages if not ``` npm install -g yarn ```
 ```
     yarn install

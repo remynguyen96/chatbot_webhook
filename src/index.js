@@ -16,9 +16,11 @@ app.get('/', (req, res) => {
   res.send('hello world i am a secret bot');
 });
 
+const { VERIFY_TOKEN, PAGE_ACCESS_TOKEN } = process.env;
+
 // for facebook verification
 app.get('/webhook/', function (req, res) {
-  if (req.query['hub.verify_token'] === 'verify_app') {
+  if (req.query['hub.verify_token'] === VERIFY_TOKEN) {
     res.send(req.query['hub.challenge']);
   } else {
     res.send('Error, wrong token');
@@ -51,16 +53,15 @@ app.post('/webhook/', function (req, res) {
 
 
 // recommended to inject access tokens as environmental variables, e.g.
-// const token = process.env.FB_PAGE_ACCESS_TOKEN
-const token = "EAAF9YfYoid4BAKKi9ZB0rzzXNzf7IxYbgsoyHafNVTYYQneWZC15C7nZBDCsmdLuxFkIz5WTERWN9ckXEbfOBfVYq17E5nUnhkwqU8kZAoQXsK7Wa6xAJ6ZChUZBa1Gi41ItjiJfuJZBBMIVljeeQ1kDMvTNTpuktacbJiJVYpZAyJkcJyrtZBtGq";
-const url = "https://graph.facebook.com/v3.1/me/messages";
+const token = process.env.FB_PAGE_ACCESS_TOKEN
+const url = "https://graph.facebook.com/v3.3/me/messages";
 
 function sendTextMessage(sender, text) {
   let messageData = { text: text };
-  
+
   request({
     url,
-    qs: { access_token: token },
+    qs: { access_token: PAGE_ACCESS_TOKEN },
     method: 'POST',
     json: {
       recipient: { id: sender },
@@ -109,7 +110,7 @@ function sendGenericMessage(sender) {
   };
   request({
     url,
-    qs: { access_token: token },
+    qs: { access_token: PAGE_ACCESS_TOKEN },
     method: 'POST',
     json: {
       recipient: { id: sender },
@@ -124,7 +125,7 @@ function sendGenericMessage(sender) {
   });
 }
 
-// spin spin sugar
 app.listen(app.get('port'), function () {
   console.log('Servering running on port', app.get('port'));
 });
+

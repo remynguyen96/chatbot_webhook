@@ -1,12 +1,13 @@
 {
   "name": "webhooks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Basic Webhooks For Facebook",
   "main": "index.js",
   "author": "Remy Nguyen",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon app.js --exec"
+    "start": "nodemon app.js --exec",
+    "deploy": "chmod 755 deploy.sh && ./deploy.sh"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "webhooks",
-  "version": "1.0.2",
+  "version": "1.0.48",
   "description": "Basic Webhooks For Facebook",
   "main": "src/index.js",
   "author": "Remy Nguyen",

@@ -5,7 +5,7 @@ const fs = require('fs');
 const rfs = require('rotating-file-stream');
 
 module.exports = (app) => {
-  const logDirectory = path.join(__dirname, 'logs');
+  const logDirectory = path.join(__dirname, '../', 'logs');
   // ensure log directory exists
   fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
   // create a rotating write stream
@@ -19,7 +19,7 @@ module.exports = (app) => {
   app.use(bodyParser.json());
   
   app.set('view engine', 'pug');
-  app.set('views', path.join(__dirname, 'public'));
+  app.set('views', path.join(__dirname, '../', 'public'));
 };
 
 

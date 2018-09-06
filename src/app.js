@@ -30,7 +30,7 @@ app.set('views', path.join(__dirname, 'public'));
 
 app.get('/', (req, res) => {
   const infomation = {
-    title: `Chatbot for messenger ${version}`,
+    title: `Remy Chatbot for messenger ${version}`,
     version,
   };
   res.render('index', infomation);
@@ -72,14 +72,16 @@ app.get('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
   let response;
   // Check if the message contains text
-  if (received_message.text) {
+  const { text, attachments } = received_message;
+  if (text) {
     // Create the payload for a basic text message
     response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an image!`
+      "text": `You sent the message: "${text}". Now send me an image!`
     };
-  } else if (received_message.attachments) {
+  } else if (attachments) {
+    // console.log(attachments, 'attachments');
     // Gets the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
+    let attachment_url = attachments[0].payload.url;
     response = {
       "attachment": {
         "type": "template",
@@ -113,10 +115,8 @@ function handleMessage(sender_psid, received_message) {
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
   let response;
-
   // Get the payload for the postback
-  let payload = received_postback.payload;
-
+  const { payload } = received_postback;
   // Set the response based on the postback payload
   if (payload === 'yes') {
     response = { "text": "Thanks!" };
@@ -130,7 +130,7 @@ function handlePostback(sender_psid, received_postback) {
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response) {
   // Construct the message body
-  let request_body = {
+  const request_body = {
     "recipient": {
       "id": sender_psid
     },
@@ -139,13 +139,13 @@ function callSendAPI(sender_psid, response) {
 
   // Send the HTTP request to the Messenger Platform
   request({
-    "uri": urlService,
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": request_body
+    uri: urlService,
+    qs: { access_token: PAGE_ACCESS_TOKEN },
+    method: "POST",
+    json: request_body
   }, (err, res, body) => {
     if (!err) {
-      console.log('message sent!');
+      console.log('Message sent!');
     } else {
       console.error("Unable to send message:" + err);
     }

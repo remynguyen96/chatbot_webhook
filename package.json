@@ -1,0 +1,25 @@
+{
+  "name": "webhooks-chatbot",
+  "version": "1.0.2",
+  "description": "Cloud Functions for Firebase build Webhooks Messengers",
+  "author": "Remy Nguyen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/remynguyen96/chatbot_webhook.git"
+  },
+  "scripts": {
+    "start": "nodemon src/app.js --exec",
+    "deploy": "chmod 755 scripts/deploy.sh && scripts/deploy.sh"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.4",
+    "pug": "^2.0.3",
+    "request": "^2.88.0",
+    "rotating-file-stream": "^1.3.7"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "webhooks-chatbot",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Cloud Functions for Firebase build Webhooks Messengers",
   "author": "Remy Nguyen",
   "license": "MIT",

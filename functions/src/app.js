@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const settings = require('./settings');
 const { handleMessage, handlePostback } = require('./setup-webhook');
-const { version } = require('../package');
+const { version } = require('../../package');
 
 const app = express();
 

@@ -63,6 +63,16 @@ Server will start with port http://localhost:4500
 
 ## Deployment
 
+### Firebase
+
+To deploy your application server with [Firebase](https://firebase.google.com/docs/web/setup?authuser=0#host_your_web_app_using_firebase_hosting), follow these instructions:
+
+1.  Install the *Firebase Command Line Interface* `npm install -g firebase-tools`
+2.  Log in to the Firebase CLI with `firebase login`
+3.  `firebase init hosting` to create hosting with public file `index.html` and `404.html` 
+3.  `firebase init functions` to create function deploy nodeJS in over here.
+5.  Deploy your app server by executing `firebase deploy`
+
 ### Heroku
 
 To deploy your application server with [Heroku](https://heroku.com), follow these instructions:

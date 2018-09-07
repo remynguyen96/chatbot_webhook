@@ -32,9 +32,7 @@ app.post('/webhook', (req, res) => {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       const { messaging } = entry;
-      //PSID Get the sender 
       const { sender: { id }, message, postback } = messaging[0];
-      // pass the event to the appropriate handler function
       if (message) {
         handleMessage(id, message);
       } else if (postback) {

@@ -32,11 +32,10 @@ app.post('/webhook', (req, res) => {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       const { messaging } = entry;
-      const { sender: { id }, message, postback } = messaging[0];
-      if (message) {
-        handleMessage(id, message);
-      } else if (postback) {
-        handlePostback(id, postback);
+      if (Array.isArray(messaging) && messaging.length >= 1) {
+        const { sender: { id }, message, postback } = messaging[0];
+        message ? handleMessage(id, message) : null;
+        postback ? handlePostback(id, postback) : null;
       }
     });
     res.status(200).send('EVENT_RECEIVED');

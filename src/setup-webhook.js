@@ -1,23 +1,22 @@
 const request = require('request');
+const fetch = require('node-fetch');
+const utf8 = require('utf8');
 
-// https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20180907T103104Z.6927e8d673f30e36
-//   .78dbb8ebf822b696359b83bc08807aa9dca27e36&text="xin chào&lang=vi-en
 const urlService = 'https://graph.facebook.com/v3.0/me/messages';
 const apiTranslate = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
 const { PAGE_ACCESS_TOKEN, KEY_TRANSLATE } = process.env;
 
 const translateApi = async (text) => {
-  const url = `${apiTranslate}?key=${KEY_TRANSLATE}&text=${text}&lang=vi-en`;
-  const getTranslate = request.get(url, (error, res, body) => {
-    if (error) {
-      console.error(`Unable to send message: ${error}`);
-    } else if (res.body.error) {
-      console.log('Error: ', res.body.error);
-    } else {
-      console.log(body, 'body.text');
-    }
-  });
-  return getTranslate;
+  try {
+    const encodeText = utf8.encode(text);
+    const url = `${apiTranslate}?key=${KEY_TRANSLATE}&text=${encodeText}&lang=vi-en`;
+    const getTranslate = await fetch(url);
+    const parseTranslateApi = await getTranslate.json();
+    const jsonResult = await parseTranslateApi;
+    return jsonResult;
+  } catch (error) {
+    console.error(`Unable to send message: ${error}`);
+  }
 };
 
 const callSendAPI = (sender_psid, response) => {
@@ -41,11 +40,16 @@ const callSendAPI = (sender_psid, response) => {
   });
 };
 
-const handleReceiveText = (text) => {
-  const test = translateApi(text);
-  console.log(test, 'test');
+const handleReceiveText = async (messages) => {
+  const { text } = await translateApi(messages);
+  if (Array.isArray(text)) {
+    const encodeMessage = utf8.encode(text[0]);
+    return {
+      text: encodeMessage
+    };
+  }
   return {
-    text: "------------------------------------------------------"
+    text: `I can't translate ${message}. I really sorry about that!`
   };
 };
 
@@ -92,11 +96,11 @@ const handleReceiveFile = (file) => {
 };
 
 // Handles messages events
-const handleMessage = (sender_psid, message) => {
+const handleMessage = async (sender_psid, message) => {
   let response;
   const { text, attachments } = message;
   if (text) {
-    response = handleReceiveText(text);
+    response = await handleReceiveText(text);
   } else if (attachments) {
     response = handleReceiveFile(attachments);
   }
